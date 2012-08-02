@@ -1,0 +1,161 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>chruby by postmodern</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/respond.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="stylesheets/ie.css">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+      <div id="header">
+        <nav>
+          <li class="fork"><a href="https://github.com/postmodern/chruby">View On GitHub</a></li>
+          <li class="downloads"><a href="https://github.com/postmodern/chruby/zipball/master">ZIP</a></li>
+          <li class="downloads"><a href="https://github.com/postmodern/chruby/tarball/master">TAR</a></li>
+          <li class="title">DOWNLOADS</li>
+        </nav>
+      </div><!-- end header -->
+
+    <div class="wrapper">
+
+      <section>
+        <div id="title">
+          <h1>chruby</h1>
+          <p>Simple Ruby switcher</p>
+          <hr>
+          <span class="credits left">Project maintained by <a href="https://github.com/postmodern">postmodern</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="http://twitter.com/#!/michigangraham">mattgraham</a></span>
+        </div>
+
+        <h1>chruby</h1>
+
+<p>Simple Ruby switcher.</p>
+
+<h2>Features</h2>
+
+<ul>
+<li>Simply modifies <code>$PATH</code>.</li>
+<li>Correctly sets <code>$GEM_HOME</code> and <code>$GEM_PATH</code>.
+
+<ul>
+<li>Users: gems are installed into <code>~/.gem/$ruby/$version</code>.</li>
+<li>Root: gems are installed directly into <code>/path/to/$ruby/lib/ruby/gems/$version</code>.</li>
+</ul>
+</li>
+<li>Adds <code>$GEM_HOME</code> and <code>$GEM_PATH</code> to <code>$PATH</code>.</li>
+<li>Additionally sets <code>$RUBY_PATH</code>, <code>$RUBY_VERSION</code> and <code>$RUBY_ENGINE</code>.</li>
+<li>Defaults to the system Ruby.</li>
+<li>Fuzzy matching of Rubies by name.</li>
+<li>Small (~80 LOC).</li>
+</ul><h2>Anti-Features</h2>
+
+<ul>
+<li>Does not hook <code>cd</code>.</li>
+<li>Does not install executable shims.</li>
+<li>Does not require Rubies be installed into your home directory.</li>
+<li>Does not automatically switch Rubies upon login or when changing directories.</li>
+<li>Does not require write-access to the Ruby directory in order to install gems.</li>
+</ul><h2>Install</h2>
+
+<pre><code>wget http://cloud.github.com/downloads/postmodern/chruby/chruby-0.0.1.tar.bz2 \
+tar -xjvf chruby-0.0.1.tar.bz2
+cd chrub-0.0.1/
+make install
+</code></pre>
+
+<h3>PGP</h3>
+
+<p>All releases are <a href="http://en.wikipedia.org/wiki/Pretty_Good_Privacy">PGP</a> signed 
+for security. My PGP Key can be found <a href="http://postmodern.github.com/contact.html">here</a>. To verify that a release was not tampered with:</p>
+
+<pre><code>wget http://cloud.github.com/downloads/postmodern/chruby/chruby-0.0.1.tar.bz2.asc
+gpg --verify chruby-0.0.1.tar.bz2.asc chruby-0.0.1.tar.bz2
+</code></pre>
+
+<h2>Configuration</h2>
+
+<p>Add the lines following to your <code>~/.bashrc</code> or <code>~/.profile</code> file:</p>
+
+<pre><code>. /usr/local/etc/profile.d/chruby.sh
+
+RUBIES=~/src/{ruby,jruby,rubinius}*
+</code></pre>
+
+<h3>System Wide</h3>
+
+<p>Create a <code>/etc/profile.d/chruby.sh</code> file, containing the following:</p>
+
+<pre><code>. /usr/local/etc/profile.d/chruby.sh
+
+RUBIES=(
+  /usr/local/ruby-1.8.7-p370
+  /usr/local/ruby-1.9.3-p194
+  /usr/local/jruby-1.6.7.2
+  /usr/local/rubinius
+)
+</code></pre>
+
+<h2>Examples</h2>
+
+<p>List available Rubies:</p>
+
+<pre><code>$ chruby
+   ruby-1.8.7-p370
+   ruby-1.9.3-p194
+   jruby-1.6.7.2
+   rubinius
+</code></pre>
+
+<p>Select a Ruby:</p>
+
+<pre><code>$ chruby 1.8
+$ chruby
+ * ruby-1.8.7-p370
+   ruby-1.9.3-p194
+   jruby-1.6.7.2
+   rubinius
+$ echo $PATH
+/home/hal/.gem/ruby/1.8.7/bin:/usr/local/ruby-1.8.7-p370/lib/ruby/gems/1.8/bin:/usr/local/ruby-1.8.7-p370/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:/home/hal/bin
+$ echo $GEM_HOME
+/home/hal/.gem/ruby/1.8.7
+$ echo $GEM_PATH
+/home/hal/.gem/ruby/1.8.7:/usr/local/ruby-1.8.7-p370/lib/ruby/gems/1.8
+</code></pre>
+
+<p>Switch back to system Ruby:</p>
+
+<pre><code>$ chruby system
+$ echo $PATH
+/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:/home/hal/bin
+</code></pre>
+
+<p>Switch to an arbitrary Ruby on the fly:</p>
+
+<pre><code>$ chruby_use /path/to/ruby
+</code></pre>
+
+<h2>Alteratives</h2>
+
+<ul>
+<li><a href="https://rvm.io/">RVM</a></li>
+<li><a href="https://github.com/sstephenson/rbenv#readme">rbenv</a></li>
+<li><a href="https://github.com/hmans/rbfu#readme">rbfu</a></li>
+</ul>
+      </section>
+
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
+    
+  </body>
+</html>
