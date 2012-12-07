@@ -161,7 +161,7 @@ Switch back to system Ruby:
 
 Switch to an arbitrary Ruby on the fly:
 
-    $ chruby_use /path/to/ruby
+    $ chruby.use /path/to/ruby
 
 ### Cron
 
