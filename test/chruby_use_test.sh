@@ -4,7 +4,7 @@
 
 setUp()
 {
-	chruby_use $TEST_RUBY
+	chruby.use $TEST_RUBY
 }
 
 test_chruby_use()
@@ -20,7 +20,7 @@ test_chruby_use()
 }
 
 tearDown() {
-	chruby_reset
+	chruby.reset
 }
 
 SHUNIT_PARENT=$0 . /usr/share/shunit2/shunit2

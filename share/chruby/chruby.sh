@@ -1,6 +1,6 @@
 typeset -a RUBIES
 
-function chruby_reset()
+function chruby.reset()
 {
 	[[ -z "$RUBY" ]] && return
 
@@ -19,10 +19,10 @@ function chruby_reset()
 	hash -r
 }
 
-function chruby_use()
+function chruby.use()
 {
 	[[ "$RUBY" == "$1" && "$RUBYOPT" == "$2" ]] && return
-	[[ -n "$RUBY" ]] && chruby_reset
+	[[ -n "$RUBY" ]] && chruby.reset
 
 	export RUBY="$1"
 	export RUBYOPT="$2"
@@ -61,12 +61,12 @@ function chruby()
 				echo " $star $(basename "$ruby_path")"
 			done
 			;;
-		system) chruby_reset ;;
+		system) chruby.reset ;;
 		*)
 			for ruby_path in ${RUBIES[@]}; do
 				if [[ `basename "$ruby_path"` == *$1* ]]; then
 					shift
-					chruby_use "$ruby_path" "$*"
+					chruby.use "$ruby_path" "$*"
 					return
 				fi
 			done

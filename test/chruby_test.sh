@@ -4,7 +4,7 @@
 
 tearDown()
 {
-	chruby_reset
+	chruby.reset
 }
 
 test_chruby_1_9()
